@@ -8,14 +8,14 @@ Estes documento README tem como objetivo fornecer as informações necessárias 
 
 # 🚨 Requisitos
 
-+ A API deverá ser construída em **NodeJS** ou **Rails**
-+ Implementar autenticação e deverá seguir o padrão **JWT**, lembrando que o token a ser recebido deverá ser no formato **Bearer**
-+ Caso seja desenvolvida em NodeJS o seu projeto terá que ser implementado em **ExpressJS** ou **SailsJS**
-+ Para a comunicação com o banco de dados utilize algum **ORM**/**ODM**
-+ Bancos relacionais permitidos:
-  - MySQL
-  - MariaDB
-  - Postgre
+* A API deverá ser construída em **NodeJS** ou **Rails**
+* Implementar autenticação e deverá seguir o padrão **JWT**, lembrando que o token a ser recebido deverá ser no formato **Bearer**
+* Caso seja desenvolvida em NodeJS o seu projeto terá que ser implementado em **ExpressJS** ou **SailsJS**
+* Para a comunicação com o banco de dados utilize algum **ORM**/**ODM**
+* Bancos relacionais permitidos:
+  * MySQL
+  * MariaDB
+  * Postgre
 + Bancos não relacionais permitidos:
   - MongoDB
 + Sua API deverá seguir os padrões Rest na construção das rotas e retornos
