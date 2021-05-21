@@ -8,6 +8,13 @@ Estes documento README tem como objetivo fornecer as informações necessárias 
 
 # 🚨 Requisitos
 
+*  Item 1
+*  Item 2
+*  Item 3
+    *  Item 3a
+    *  Item 3b
+    *  Item 3c
+
 * A API deverá ser construída em **NodeJS** ou **Rails**
 * Implementar autenticação e deverá seguir o padrão **JWT**, lembrando que o token a ser recebido deverá ser no formato **Bearer**
 * Caso seja desenvolvida em NodeJS o seu projeto terá que ser implementado em **ExpressJS** ou **SailsJS**
