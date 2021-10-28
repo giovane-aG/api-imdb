@@ -1,22 +1,22 @@
+import { Request, Response } from 'express';
+export class UserController {
+  private readonly userService: any;
 
-class UserController {
-  private userServices;
-
-  constructor(userServices) {
-    this.userServices = userServices;
+  constructor(userService) {
+    this.userService = userService;
   }
-  
-  async createUser(request, response) {
+
+  async createUser(request: Request, response: Response) {
     try {
 
       const { name, email, password } = request.body;
   
-      const user = await this.userServices.createUser({
+      const user = await this.userService.createUser({
         name,
         email,
         password,
       });
-  
+
       return response.status(201).json(user);
 
     } catch(error) {
@@ -27,5 +27,3 @@ class UserController {
     }
   }
 }
-
-export default UserController;
