@@ -33,6 +33,11 @@ export class CreateUsers1635426604374 implements MigrationInterface {
                     name: 'isAdmin',
                     type: 'int',
                     default: 0,
+                },
+                {
+                    name: 'active',
+                    type: 'int',
+                    default: 1,
                 }
             ]
         }));

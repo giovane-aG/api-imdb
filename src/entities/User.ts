@@ -7,6 +7,9 @@ export class User {
   readonly id: number;
 
   @Column()
+  name: string;
+
+  @Column()
   email: string;
 
   @Column()
@@ -14,4 +17,7 @@ export class User {
 
   @Column()
   isAdmin: boolean;
+
+  @Column()
+  active: boolean;
 }
