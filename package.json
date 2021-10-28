@@ -2,12 +2,15 @@
   "name": "teste-backend",
   "version": "1.0.0",
   "main": "src/routes/index.ts",
-  "type": "module",
+  "engines": {
+    "node": "14.15.3"
+  },
   "dependencies": {
     "bcrypt": "^5.0.1",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
+    "ts-node": "^10.4.0",
     "typeorm": "^0.2.38",
     "validator": "^13.6.0"
   },
@@ -18,7 +21,8 @@
   },
   "scripts": {
     "dev-server": "nodemon src/routes/index.js",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
+    "typeorm": "ts-node -r tsconfig-paths/regis ./node_modules/typeorm/cli.js",
+    "migration": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:run"
   },
   "repository": {
     "type": "git",
