@@ -26,4 +26,44 @@ export class UserController {
       });
     }
   }
+
+  async updateUser(request: Request, response: Response) {
+    try {
+
+      const user_id = request.user_id;
+      const { name, email, password } = request.body;
+  
+      await this.userService.updateUser({
+        id: user_id,
+        name,
+        email,
+        password,
+      });
+
+      return response.status(200).json({message: 'User updated successfully'});
+
+    } catch(error) {
+
+      return response.status(400).json({
+        message: error.message,
+      });
+    }
+  }
+
+  async deleteUser(request: Request, response: Response) {
+    try {
+
+      const user_id = request.user_id;
+      await this.userService.deleteUser(user_id);
+
+      return response.status(200).json({message: 'User deleted successfully'});
+
+    } catch(error) {
+
+      return response.status(400).json({
+        message: error.message,
+      });
+    }
+  }
+  
 }

@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express';
 import { createConnection } from 'typeorm';
 
-
 import { getCustomRepository } from 'typeorm';
 
 import { UserController } from '../controllers/UserController';
@@ -10,6 +9,8 @@ import { UserService } from '../services/UserService';
 import { UserRepository } from '../repositories/UserRepository';
 import AuthenticateUserController from '../controllers/AuthenticateUserController';
 import AuthenticateUserService from '../services/AuthenticateUserService';
+
+import { ensureAutheticate } from '../middlewares/ensureAutheticate';
 
 createConnection().then(() => {
 
@@ -23,9 +24,20 @@ createConnection().then(() => {
   const app = express();
   app.use(express.json());
 
-  app.post('/login', authenticateUserController.handleAuthenticateUser)
+  app.post('/login', async (request: Request, response: Response) => {
+    return await authenticateUserController.handleAuthenticateUser(request, response);
+  })
+
   app.post('/user', async (request: Request, response: Response) => {
     return await userController.createUser(request, response);
+  });
+
+  app.put('/user', ensureAutheticate, async (request: Request, response: Response) => {
+    return await userController.updateUser(request, response);
+  });
+
+  app.delete('/user', ensureAutheticate, async (request: Request, response: Response) => {
+    return await userController.deleteUser(request, response);
   });
 
   app.listen(3000, () => {

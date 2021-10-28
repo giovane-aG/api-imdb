@@ -1,5 +1,5 @@
-import  { hash } from 'bcrypt';
-import  validator  from 'validator';
+import { hash } from 'bcrypt';
+import validator from 'validator';
 
 export class UserService {
   private userRepository;
@@ -24,7 +24,7 @@ export class UserService {
 
     const hashedPassword = await hash(password.toString(), 8);
 
-    const newUser = this.userRepository.create({
+    const newUser = await this.userRepository.create({
       name,
       email,
       password: hashedPassword
@@ -34,5 +34,32 @@ export class UserService {
     delete newUser.password;
 
     return newUser;
+  }
+
+  async updateUser(user) {
+    const { name, email, password, id } = user;
+
+    if (typeof name !== 'string') throw new Error('Name is invalid');
+    if (email && !validator.isEmail(email)) throw new Error('Email is invalid');
+    
+    let updatedUser: any = {};
+
+    if (name) updatedUser.name = name;
+    if (email) updatedUser.email = email;
+    if (password) updatedUser.password = await hash(password.toString(), 8);
+
+    const userExists = await this.userRepository.findOne({ id });
+
+    if (!userExists) throw new Error('User does not exist');
+
+    await this.userRepository.update(id, {...updatedUser});
+  }
+
+  async deleteUser(id) {
+    const userExists = await this.userRepository.findOne({ id });
+
+    if (!userExists) throw new Error('User does not exist');
+
+    await this.userRepository.update(id, { active: false });
   }
 }
