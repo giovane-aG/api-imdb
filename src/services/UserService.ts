@@ -1,9 +1,7 @@
 import  { hash } from 'bcrypt';
 import  validator  from 'validator';
-// import  Connection from '../database/connection';
-import { getRepository } from 'typeorm';
 
-class UserService {
+export class UserService {
   private userRepository;
 
   constructor (userRepository) {
@@ -24,7 +22,7 @@ class UserService {
 
     if (userExists) throw new Error('User already exists');
 
-    const hashedPassword = await hash(password, 8);
+    const hashedPassword = await hash(password.toString(), 8);
 
     const newUser = this.userRepository.create({
       name,
@@ -38,5 +36,3 @@ class UserService {
     return newUser;
   }
 }
-
-export default UserService;
