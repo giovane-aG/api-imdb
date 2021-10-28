@@ -1,7 +1,7 @@
 import  { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity("users")
-class User {
+export class User {
 
   @PrimaryColumn()
   readonly id: number;
@@ -14,28 +14,4 @@ class User {
 
   @Column()
   isAdmin: boolean;
-
-  // tableName: 'users',
-  // columns: {
-  //   id: {
-  //     primary: true,
-  //     type: 'int',
-  //     generated: true,
-  //   },
-  //   name: {
-  //     type: 'varchar',
-  //   },
-  //   email: {
-  //     type: 'varchar',
-  //   },
-  //   password: {
-  //     type: 'varchar',
-  //   },
-  //   isAdmin: {
-  //     type: 'int',
-  //     default: 0,
-  //   }
-  // }
 }
-
-export default User;
