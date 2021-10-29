@@ -1,6 +1,6 @@
 
 
-class AuthenticateUserController {
+export class AuthenticateUserController {
   private authenticateUserService;
 
   constructor(authenticateUserService) {
@@ -25,5 +25,3 @@ class AuthenticateUserController {
     }
   }
 }
-
-export default AuthenticateUserController;
