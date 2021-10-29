@@ -15,7 +15,7 @@ import { ensureIsAdmin } from '../middlewares/ensureIsAdmin';
 
 export class UserComposer {
 
-  static compose(router: Router) {
+  public static compose(router: Router) {
 
     const userRepository = getCustomRepository(UserRepository);
 
@@ -43,10 +43,6 @@ export class UserComposer {
 
     router.delete('/user', ensureAutheticate, async (request: Request, response: Response) => {
       return await userController.deleteUser(request, response);
-    });
-
-    router.post('/admin', async (request: Request, response: Response) => {
-      return await adminController.createAdmin(request, response);
     });
 
     router.post('/admin', async (request: Request, response: Response) => {
