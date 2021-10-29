@@ -11,6 +11,7 @@ import AuthenticateUserService from '../services/AuthenticateUserService';
 
 import { UserRepository } from '../repositories/UserRepository';
 import { ensureAutheticate } from '../middlewares/ensureAutheticate';
+import { ensureIsAdmin } from '../middlewares/ensureIsAdmin';
 
 export class UserComposer {
 
@@ -50,6 +51,10 @@ export class UserComposer {
 
     router.post('/admin', async (request: Request, response: Response) => {
       return await adminController.createAdmin(request, response);
+    })
+
+    router.put('/admin', ensureAutheticate, ensureIsAdmin, async (request: Request, response: Response) => {
+      return await adminController.updateAdmin(request, response);
     })
   }
 }

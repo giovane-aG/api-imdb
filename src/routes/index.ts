@@ -1,7 +1,6 @@
 import express, { Router } from 'express';
 import { createConnection } from 'typeorm';
 import { UserComposer } from '../composers/userComposer';
-import '../database'
 
 createConnection().then(() => {
 
