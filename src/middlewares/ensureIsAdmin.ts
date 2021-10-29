@@ -20,9 +20,10 @@ export async function ensureIsAdmin (request: Request, response: Response, next:
   const userRepository = getCustomRepository(UserRepository);
 
   const user = await userRepository.findOne(userId.sub);
+  if (!user) return response.status(401).json({ error: "Unauthorized" });
 
   if (user.isAdmin) {
-    next();
+    return next();
   }
 
   return response.status(401).json({
