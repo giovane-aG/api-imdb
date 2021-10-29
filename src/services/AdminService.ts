@@ -36,4 +36,23 @@ export class AdminService {
 
     return newAdmin;
   }
+
+  async updateAdmin (admin) {
+    const { id, name, email, password} = admin;
+
+    if (typeof name !== 'string') throw new Error('Name is invalid');
+    if (email && !validator.isEmail(email)) throw new Error('Email is invalid');
+
+    let updatedAdmin: any = {};
+
+    if (name) updatedAdmin.name = name;
+    if (email) updatedAdmin.email = email;
+    if (password) updatedAdmin.password = await hash(password.toString(), 8);
+
+    const user = await this.userRepository.findOne({ id });
+
+    if (!user) throw new Error('User does not exists');
+
+    await this.userRepository.update(id, {...updatedAdmin});
+  }
 }
