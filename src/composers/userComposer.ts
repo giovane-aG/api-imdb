@@ -40,7 +40,7 @@ export class UserComposer {
       return await userController.createUser(request, response);
     });
 
-    router.put('/user', ensureAutheticate, async (request: Request, response: Response) => {
+    router.put('/user/:id', ensureAutheticate, async (request: Request, response: Response) => {
       return await userController.updateUser(request, response);
     });
 
