@@ -1,5 +1,8 @@
 import { Router, Request, Response } from 'express';
 import { getCustomRepository } from 'typeorm';
+import bcrypt from 'bcrypt';
+import validator from 'validator';
+import jsonwebtoken from 'jsonwebtoken';
 
 import { UserController } from '../controllers/UserController';
 import { AdminController } from '../controllers/AdminController';
@@ -19,13 +22,13 @@ export class UserComposer {
 
     const userRepository = getCustomRepository(UserRepository);
 
-    const userService = new UserService(userRepository);
+    const userService = new UserService({userRepository, bcrypt, validator});
     const userController = new UserController(userService);
 
-    const adminService = new AdminService(userRepository);
+    const adminService = new AdminService({userRepository, bcrypt, validator});
     const adminController = new AdminController(adminService);
 
-    const authenticateUserService = new AuthenticateUserService(userRepository);
+    const authenticateUserService = new AuthenticateUserService({userRepository, bcrypt, jsonwebtoken});
     const authenticateUserController = new AuthenticateUserController(authenticateUserService);
 
 

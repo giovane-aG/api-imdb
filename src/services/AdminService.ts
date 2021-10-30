@@ -1,12 +1,15 @@
-import validator from 'validator';
-import { hash } from 'bcrypt';
 
 export class AdminService {
-  private readonly userRepository;
+  private userRepository;
+  private bcrypt;
+  private validator;
 
-  constructor (userRepository) {
+  constructor ({ userRepository, bcrypt, validator }) {
     this.userRepository = userRepository;
+    this.bcrypt = bcrypt;
+    this.validator = validator;
   }
+
 
   async createAdmin (admin) {
     const { name, email, password } = admin;
@@ -16,7 +19,7 @@ export class AdminService {
     if (!password) throw new Error('Password is required');
     
     if (typeof name !== 'string') throw new Error('Name is invalid');
-    if (!validator.isEmail(email)) throw new Error('Email is invalid');
+    if (!this.validator.isEmail(email)) throw new Error('Email is invalid');
 
     const user = await this.userRepository.findOne({ email });
 
@@ -25,7 +28,7 @@ export class AdminService {
     const newAdmin = this.userRepository.create({
       name,
       email,
-      password: await hash(password.toString(), 8),
+      password: await this.bcrypt.hash(password.toString(), 8),
       isAdmin: true
     });
 
@@ -41,13 +44,13 @@ export class AdminService {
     const { id, name, email, password} = admin;
 
     if (typeof name !== 'string') throw new Error('Name is invalid');
-    if (email && !validator.isEmail(email)) throw new Error('Email is invalid');
+    if (email && !this.validator.isEmail(email)) throw new Error('Email is invalid');
 
     let updatedAdmin: any = {};
 
     if (name) updatedAdmin.name = name;
     if (email) updatedAdmin.email = email;
-    if (password) updatedAdmin.password = await hash(password.toString(), 8);
+    if (password) updatedAdmin.password = await this.bcrypt.hash(password.toString(), 8);
 
     const user = await this.userRepository.findOne({ id });
 
