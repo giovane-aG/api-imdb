@@ -1,12 +1,14 @@
-import { compare } from "bcrypt";
-import { sign } from "jsonwebtoken";
 import { TOKEN_KEY } from "../../token_key";
 
 class AuthenticateUserService {
   private userRepository;
+  private bcrypt;
+  private jsonwebtoken;
 
-  constructor (userRepository) {
-    this.userRepository = userRepository
+  constructor ({ userRepository, bcrypt, jsonwebtoken }) {
+    this.userRepository = userRepository;
+    this.bcrypt = bcrypt;
+    this.jsonwebtoken = jsonwebtoken;
   }
 
   async execute(email, password) {
@@ -17,13 +19,13 @@ class AuthenticateUserService {
 
     if (!user) throw new Error("Invalid Email/Password");
 
-    const passwordMatched = await compare(password.toString(), user.password);
+    const passwordMatched = await this.bcrypt.compare(password.toString(), user.password);
 
     if (!passwordMatched) throw new Error("Invalid Email/Password");
 
     const user_id = user.id.toString()
 
-    const token = sign({
+    const token = this.jsonwebtoken.sign({
       email: user.email
     }, TOKEN_KEY, {
       subject: user_id,
