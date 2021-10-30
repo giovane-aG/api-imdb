@@ -8,12 +8,28 @@ export class MovieController {
     this.movieService = movieService;
   }
 
+  async getMovies (request: Request, response: Response) {
+    try {
+
+      const { id, title, description, director, gender } = request.query;
+
+      const movies = await this.movieService.getMovie({ id, title, description, director, gender });
+
+      return response.status(200).json(movies);
+      
+    } catch (error) {
+      console.log('error :>> ', error);
+      return response.status(400).json({ message: error.message });
+    }
+      
+  }
+
   async createMovie (request: Request, response: Response) {
     try {
       
-      const { title, description } = request.body;
+      const { title, description, director, gender } = request.body;
 
-      const movie = await this.movieService.createMovie({ title, description });
+      const movie = await this.movieService.createMovie({ title, description, director, gender });
 
       response.status(201).json(movie);
       

@@ -1,4 +1,4 @@
-import  { Column, Entity, PrimaryColumn } from 'typeorm';
+import  { Column, Entity, JoinColumn, OneToMany, PrimaryColumn } from 'typeorm';
 
 @Entity('Movie')
 export class Movie {
@@ -11,6 +11,12 @@ export class Movie {
     @Column()
     description: string;
     
+    @Column()
+    director: string;
+
+    @Column()
+    gender: string;
+
     @Column()
     rate: number;
 

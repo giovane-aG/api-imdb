@@ -18,6 +18,11 @@ export class MovieComposer {
       const voteMovieService = new MovieVoteService(movieRepository);
       const voteMovieController = new MovieVoteController(voteMovieService);
 
+
+      router.get('/movie', async (request: Request, response: Response) => {
+        return await movieController.getMovies(request, response);
+      });
+
       router.post('/movie', ensureAutheticate, ensureIsAdmin, async (request: Request, response: Response) => {
         return await movieController.createMovie(request, response);
       });
