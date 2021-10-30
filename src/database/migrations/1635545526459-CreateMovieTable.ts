@@ -32,6 +32,18 @@ export class CreateMovieTable1635545526459 implements MigrationInterface {
                     default: 0,
                 },
                 {
+                    name: 'director',
+                    type: 'varchar',
+                    length: '255',
+                    isNullable: false,
+                },
+                {
+                    name: 'gender',
+                    type: 'varchar',
+                    length: '255',
+                    isNullable: false,
+                },
+                {
                     name: 'number_of_votes',
                     type: 'int',
                     isNullable: false,
