@@ -39,10 +39,14 @@ export class UserService {
   }
 
   async updateUser(user) {
-    const { name, email, password, id } = user;
+    const { name, email, password, id, loggedUserId } = user;
+
+    if (!id) throw new Error('Id is required');
+    if (loggedUserId !== id) throw new Error('You can only update your own profile');
 
     if (typeof name !== 'string') throw new Error('Name is invalid');
     if (email && !this.validator.isEmail(email)) throw new Error('Email is invalid');
+
     
     let updatedUser: any = {};
 
