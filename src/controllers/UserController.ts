@@ -30,11 +30,15 @@ export class UserController {
   async updateUser(request: Request, response: Response) {
     try {
 
-      const user_id = request.user_id;
+      const loggedUserId = request.user_id;
+      const userId = request.params.id;
+
+      if (loggedUserId !== userId) throw new Error('You can only update your own profile');
+      
       const { name, email, password } = request.body;
   
       await this.userService.updateUser({
-        id: user_id,
+        id: userId,
         name,
         email,
         password,
